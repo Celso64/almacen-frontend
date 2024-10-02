@@ -1,0 +1,32 @@
+.product_table {
+  border-collapse: collapse;
+  table-layout: auto;
+  display: block;
+  width: 100%;
+  overflow-x: auto;
+}
+
+.product_table td,
+.product_table th {
+  word-wrap: break-word;
+  padding: 10px;
+  border: 1px solid #ccc;
+}
+
+.products_container {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: repeat(2, 1fr);
+  grid-column-gap: 0px;
+  grid-row-gap: 0px;
+  width: 80%;
+  height: 256px;
+}
+
+.botones_container {
+  width: 60%;
+  display: flex;
+  margin-top: 12px;
+  align-items: center;
+  justify-content: space-between;
+}

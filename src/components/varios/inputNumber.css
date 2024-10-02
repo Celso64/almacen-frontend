@@ -1,0 +1,36 @@
+.simple_input_number {
+  border: 1px black solid;
+  border-radius: 4px;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  grid-template-rows: 1fr;
+  grid-column-gap: 0px;
+  grid-row-gap: 0px;
+}
+
+.simple_button_container {
+  display: flex;
+  flex-direction: column;
+  grid-area: 1 / 5 / 2 / 6;
+}
+
+.simple_button {
+  width: 42px;
+  height: 26px;
+  color: black;
+  background-color: white;
+  border: 1px black solid;
+}
+
+.simple_button:hover {
+  background-color: rgb(231, 231, 231);
+}
+
+.simple_button:active {
+  background-color: rgb(192, 192, 192);
+}
+
+.simple_text_number {
+  text-align: center;
+  grid-area: 1 / 1 / 2 / 5;
+}

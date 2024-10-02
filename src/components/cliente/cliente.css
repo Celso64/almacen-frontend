@@ -1,0 +1,14 @@
+h2 {
+  font-size: 20px;
+}
+
+.cliente_input_container {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.cliente_input {
+  height: 32px;
+  text-align: center;
+}

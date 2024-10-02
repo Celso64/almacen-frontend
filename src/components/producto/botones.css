@@ -1,0 +1,18 @@
+.simple_button_sub {
+  width: 128px;
+  height: 48px;
+  color: black;
+  border: 1px black solid;
+  background-color: white;
+  border-radius: 8px;
+}
+
+.simple_button_sub:disabled {
+  color: rgb(119, 119, 119);
+  border: 1px rgb(119, 119, 119) solid;
+  background-color: white;
+}
+
+.simple_button_sub:hover {
+  font-weight: bold;
+}
