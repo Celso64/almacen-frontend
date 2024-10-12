@@ -1,0 +1,46 @@
+.update_container {
+  --close_btn_len: 24px;
+
+  --form_width: 24vw;
+  --field_form_len: 48px;
+}
+
+.update_title {
+  display: flex;
+  gap: 10vh;
+  margin-bottom: 2vh;
+}
+
+.update_close_btn {
+  width: var(--close_btn_len);
+  height: var(--close_btn_len);
+
+  border: 1px black solid;
+  border-radius: 8px;
+
+  background-color: white;
+}
+
+.update_close_btn:hover {
+  background-color: lightgray;
+}
+
+.update_form {
+  width: var(--form_width);
+}
+
+.update_field {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: 1fr;
+  grid-column-gap: 0px;
+  grid-row-gap: 1vh;
+}
+
+.update_field > label {
+  grid-area: 1 / 2 / 2 / 3;
+}
+
+.update_field > label {
+  grid-area: 1 / 1 / 2 / 2;
+}
