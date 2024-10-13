@@ -24,6 +24,35 @@ export async function getProductos(): Promise<Producto[]> {
   }
 }
 
+export async function updateProducto(
+  productoUpdate: Producto
+): Promise<"ok" | "concurrenciaError" | "otroError" | undefined> {
+  try {
+    const response = await fetch(PRODUCTO_SERVICE + "/" + productoUpdate.id, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Origin": "*",
+      },
+      body: JSON.stringify(productoUpdate),
+    });
+
+    switch (response.status) {
+      case 200: {
+        return "ok";
+      }
+      case 400: {
+        return "concurrenciaError";
+      }
+      default: {
+        return "otroError";
+      }
+    }
+  } catch (error) {
+    console.error("Error en el fetch:", error);
+  }
+}
+
 export async function calcularVenta(
   ids: number[],
   tarjeta: number

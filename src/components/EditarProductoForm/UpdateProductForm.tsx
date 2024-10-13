@@ -1,6 +1,8 @@
 import { useForm, SubmitHandler } from "react-hook-form";
 import { Producto } from "../../model/Producto";
 import "./style.css";
+import { updateProducto } from "../../utils/api";
+import { toast, ToastContainer } from "react-toastify";
 
 interface UpdateProductProps {
   producto: Producto;
@@ -37,9 +39,9 @@ export default function UpdateProductForm({
     },
   });
 
-  const onSubmit: SubmitHandler<fields> = (data) => {
+  const onSubmit: SubmitHandler<fields> = async (data) => {
     if (!errors) {
-      const updateProducto: Producto = {
+      const productoNuevo: Producto = {
         id: producto.id,
         nombre: data.nombre,
         descripcion: data.descripcion,
@@ -47,10 +49,41 @@ export default function UpdateProductForm({
         marca: data.marca,
         categoria: data.categoria,
       };
-      console.log(updateProducto);
+
+      const StatusServer: "ok" | "concurrenciaError" | "otroError" | undefined =
+        await updateProducto(productoNuevo);
+
+      switch (StatusServer) {
+        case "ok": {
+          avisar("Se actualizo correctamente.");
+          break;
+        }
+        case "concurrenciaError": {
+          avisar("Error de acceso concurrente.");
+          break;
+        }
+        default: {
+          avisar("Otro error.");
+        }
+      }
+
+      console.log(productoNuevo);
     } else {
       console.log(errors?.nombre);
     }
+  };
+
+  const avisar = (mensaje: string) => {
+    toast(mensaje, {
+      position: "top-right",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+    });
   };
 
   return (
@@ -116,6 +149,19 @@ export default function UpdateProductForm({
           <input type="submit" />
         </form>
       </h2>
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+      />
+      <ToastContainer />
     </div>
   );
 }
