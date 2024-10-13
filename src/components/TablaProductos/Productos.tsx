@@ -1,4 +1,5 @@
 import { Producto } from "../../model/Producto";
+import "./style.css";
 
 interface ProductosProps {
   productos: Producto[];
@@ -8,19 +9,21 @@ interface ProductosProps {
 export default function Productos({ productos, handleSelect }: ProductosProps) {
   return (
     <div>
-      <table>
+      <table className="update_productos_table">
         <thead>
-          <td>ID</td>
-          <td>Nombre</td>
-          <td>Descripcion</td>
-          <td>Precio</td>
-          <td>Marca</td>
-          <td>Categoria</td>
-          <td>Editar</td>
+          <tr>
+            <th>ID</th>
+            <th>Nombre</th>
+            <th>Descripcion</th>
+            <th>Precio</th>
+            <th>Marca</th>
+            <th>Categoria</th>
+            <th>Editar</th>
+          </tr>
         </thead>
         <tbody>
           {productos.map((p: Producto) => (
-            <tr>
+            <tr key={p.id}>
               <td>{p.id}</td>
               <td>{p.nombre}</td>
               <td>{p.descripcion || ""}</td>

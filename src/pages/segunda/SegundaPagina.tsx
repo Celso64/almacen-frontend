@@ -1,18 +1,22 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import TopBar from "../../components/TopBar/TopBar";
 import { Producto } from "../../model/Producto";
 import Productos from "../../components/TablaProductos/Productos";
 import UpdateProductForm from "../../components/EditarProductoForm/UpdateProductForm";
-import Error from "../../components/errorUpdate/ErrorUpdate";
+import "./style.css";
 
 export default function SegundaPagina() {
-  const [producto, setProducto] = useState<Producto | undefined>(undefined);
-  const [error, setError] = useState<Error | undefined>(undefined);
-  const [hayError, setHayError] = useState<boolean>(false);
+  const productoDefault: Producto = {
+    id: 0,
+    nombre: "sin nombre",
+    descripcion: "sin descripcion",
+    categoria: "sin categoria",
+    marca: "sin marca",
+    precio: 0.0,
+  };
 
-  useEffect(() => {
-    setHayError(true);
-  }, [error]);
+  const [producto, setProducto] = useState<Producto>(productoDefault);
+  const [verForm, setVerForm] = useState<boolean>(false);
 
   const productos: Producto[] = [
     {
@@ -45,27 +49,39 @@ export default function SegundaPagina() {
     const pr: Producto | undefined = productos.find(
       (p: Producto) => p.id === id
     );
-    setProducto(pr);
+    if (pr === undefined) {
+      setProducto(productoDefault);
+      setVerForm(false);
+    } else {
+      setProducto(pr);
+      setVerForm(true);
+    }
   };
 
   return (
-    <>
+    <div>
       <TopBar />
-      <div>
-        <Productos productos={productos} handleSelect={handleSelect} />
-      </div>
 
-      <Error visible={hayError} setVisible={setHayError} error={error} />
+      <div className="paginaContainer">
+        <div style={{ gridArea: "1 / 1 / 2 / 2", placeSelf: "center" }}>
+          <Productos productos={productos} handleSelect={handleSelect} />
+        </div>
 
-      <div style={{ display: producto ? "block" : "none" }}>
-        <UpdateProductForm
-          producto={producto}
-          handleSelect={handleSelect}
-          marcas={marcas}
-          categorias={categorias}
-          setError={setError}
-        />
+        <div
+          style={{
+            display: verForm ? "block" : "none",
+            gridArea: "2 / 1 / 3 / 2",
+            placeSelf: "center",
+          }}
+        >
+          <UpdateProductForm
+            producto={producto}
+            handleSelect={handleSelect}
+            marcas={marcas}
+            categorias={categorias}
+          />
+        </div>
       </div>
-    </>
+    </div>
   );
 }

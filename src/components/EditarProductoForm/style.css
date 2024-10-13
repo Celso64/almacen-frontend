@@ -31,10 +31,12 @@
 
 .update_field {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(3, 1fr);
   grid-template-rows: 1fr;
-  grid-column-gap: 0px;
-  grid-row-gap: 1vh;
+  grid-column-gap: 1vw;
+  grid-row-gap: 2vh;
+
+  align-items: center;
 }
 
 .update_field > label {
@@ -43,4 +45,19 @@
 
 .update_field > label {
   grid-area: 1 / 1 / 2 / 2;
+}
+
+.error_box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  opacity: 0.9;
+  background-color: rgb(255, 208, 208);
+  color: crimson;
+
+  border: 2px solid crimson;
+  border-radius: 16px;
+
+  width: 25vw;
 }

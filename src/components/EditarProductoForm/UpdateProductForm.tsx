@@ -1,72 +1,119 @@
+import { useForm, SubmitHandler } from "react-hook-form";
 import { Producto } from "../../model/Producto";
 import "./style.css";
 
 interface UpdateProductProps {
-  producto: Producto | undefined;
+  producto: Producto;
   handleSelect: (id: number) => void;
   marcas: string[];
   categorias: string[];
-  setError: (error: Error) => void;
 }
+
+type fields = {
+  nombre: string;
+  descripcion: string;
+  precio: number;
+  marca: string;
+  categoria: string;
+};
 
 export default function UpdateProductForm({
   producto,
   handleSelect,
   marcas,
   categorias,
-  setError,
 }: UpdateProductProps) {
-  const handleBtn = () => {
-    setError(new Error("Error de prueba."));
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<fields>({
+    values: {
+      nombre: producto.nombre,
+      descripcion: producto.descripcion || "",
+      precio: producto.precio,
+      marca: producto.marca,
+      categoria: producto.categoria,
+    },
+  });
+
+  const onSubmit: SubmitHandler<fields> = (data) => {
+    if (!errors) {
+      const updateProducto: Producto = {
+        id: producto.id,
+        nombre: data.nombre,
+        descripcion: data.descripcion,
+        precio: data.precio,
+        marca: data.marca,
+        categoria: data.categoria,
+      };
+      console.log(updateProducto);
+    } else {
+      console.log(errors?.nombre);
+    }
   };
 
   return (
     <div className="update_container">
       <h2>
         <div className="update_title">
-          Formulario de {producto?.id} - {producto?.nombre}
+          Actualizacion de {producto.id} - {producto.nombre}
           <button className="update_close_btn" onClick={() => handleSelect(-1)}>
             X
           </button>
         </div>
-        <form className="update_form" action="">
+        <form className="update_form" onSubmit={handleSubmit(onSubmit)}>
           <div className="update_field">
-            <label htmlFor="id">ID:</label>
-            <input type="number" name="id" id="" value={producto?.id} />
+            <label>Nombre: </label>
+            <input {...register("nombre", { required: true })} />
+            {errors.nombre && (
+              <p className="error_box">El nombre es obligatorio.</p>
+            )}
           </div>
           <div className="update_field">
-            <label htmlFor="nombre">Nombre:</label>
-            <input type="nombre" name="" id="" value={producto?.nombre} />
+            <label>Descripcion:</label>
+            <input {...(register("descripcion"), { maxLength: 255 })} />
+            {errors.descripcion && (
+              <p className="error_box">
+                La descripcion no debe superar los 255 caracteres.
+              </p>
+            )}
           </div>
           <div className="update_field">
-            <label htmlFor="descripcion">Descripcion:</label>
-            <input type="text" value={producto?.descripcion} />
+            <label>Precio:</label>
+            <input
+              type="number"
+              {...register("precio", { required: true, min: 0 })}
+            />
+            {errors.precio && (
+              <p className="error_box">
+                {errors.precio.type === "min"
+                  ? "El precio debe ser mayor o igual a 0."
+                  : "El precio es obligatorio."}
+              </p>
+            )}
           </div>
           <div className="update_field">
-            <label htmlFor="precio">Precio:</label>
-            <input type="number" value={producto?.precio} />
-          </div>
-          <div className="update_field">
-            <label htmlFor="marca">Marca:</label>
-            <select name="marca" id="">
+            <label>Marca:</label>
+            <select {...register("marca")}>
               {marcas.map((m: string) => (
-                <option value={m} selected={producto?.marca === m}>
+                <option key={m} value={m}>
                   {m}
                 </option>
               ))}
             </select>
           </div>
           <div className="update_field">
-            <label htmlFor="categoria">Categoria:</label>
-            <select name="categoria" id="">
+            <label>Categoria:</label>
+            <select {...register("categoria")}>
               {categorias.map((c: string) => (
-                <option value={c} selected={producto?.categoria === c}>
+                <option key={c} value={c}>
                   {c}
                 </option>
               ))}
             </select>
           </div>
-          <button onClick={() => handleBtn}>Update</button>
+          <input type="submit" />
         </form>
       </h2>
     </div>
