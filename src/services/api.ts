@@ -1,5 +1,5 @@
 import { Producto } from "../model/Producto";
-import { PRODUCTO_SERVICE, VENTA_SERVICE } from "./constanst";
+import { PRODUCTO_SERVICE, VENTA_SERVICE } from "../utils/constanst";
 
 export async function getProductos(): Promise<Producto[]> {
   try {

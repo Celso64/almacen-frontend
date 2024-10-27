@@ -1,9 +1,9 @@
-import { Cliente } from "../model/Cliente";
-import { CLIENTE_SERVICE } from "./constanst";
+import { Descuento } from "../model/Descuento";
+import { DESCUENTO_SERVICE } from "../utils/constanst";
 
-export async function findCliente(id: number): Promise<Cliente | undefined> {
+export async function getDescuentos(): Promise<Descuento[]> {
   try {
-    const response = await fetch(CLIENTE_SERVICE + "/" + id, {
+    const response = await fetch(DESCUENTO_SERVICE, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -13,13 +13,13 @@ export async function findCliente(id: number): Promise<Cliente | undefined> {
 
     if (!response.ok) {
       console.error("Error en la respuesta:", response.statusText);
-      return undefined;
+      return [];
     }
 
-    const data: Cliente = await response.json();
+    const data: Descuento[] = await response.json();
     return data;
   } catch (error) {
     console.error("Error en el fetch:", error);
-    return undefined;
+    return [];
   }
 }

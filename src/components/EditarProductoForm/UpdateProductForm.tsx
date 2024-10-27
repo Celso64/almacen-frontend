@@ -1,7 +1,7 @@
 import { useForm, SubmitHandler } from "react-hook-form";
 import { Producto } from "../../model/Producto";
 import "./style.css";
-import { updateProducto } from "../../utils/api";
+import { updateProducto } from "../../services/api";
 import { toast, ToastContainer } from "react-toastify";
 
 interface UpdateProductProps {

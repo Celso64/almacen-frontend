@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { calcularVenta, vender } from "../utils/api";
+import { calcularVenta, vender } from "../services/api";
 
 export const useCarrito = () => {
   const [ids, setIds] = useState<number[]>([]);

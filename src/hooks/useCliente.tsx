@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { findCliente } from "../utils/apiCliente";
+import { findCliente } from "../services/apiCliente";
 import { Cliente } from "../model/Cliente";
 
 export const useCliente = () => {

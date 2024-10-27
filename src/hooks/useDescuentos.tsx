@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Descuento } from "../model/Descuento";
-import { getDescuentos } from "../utils/apiDescuento";
+import { getDescuentos } from "../services/apiDescuento";
 
 export const useDescuentos = () => {
   const [descuentos, setDescuentos] = useState<Descuento[]>([]);

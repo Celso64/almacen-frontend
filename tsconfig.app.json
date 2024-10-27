@@ -18,7 +18,17 @@
     "strict": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
-    "noFallthroughCasesInSwitch": true
+    "noFallthroughCasesInSwitch": true,
+
+    /* Ruta base y alias */
+    "baseUrl": "src", // Configura 'src' como la base
+    "paths": {
+      "@components/*": ["components/*"],
+      "@utils/*": ["utils/*"],
+      "@assets/*": ["assets/*"],
+      "@models/*": ["model/*"],
+      "@services/*": ["services/*"]
+    }
   },
   "include": ["src"]
 }

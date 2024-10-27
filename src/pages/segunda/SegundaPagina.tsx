@@ -1,9 +1,10 @@
-import { useState } from "react";
-import TopBar from "../../components/TopBar/TopBar";
-import { Producto } from "../../model/Producto";
-import Productos from "../../components/TablaProductos/Productos";
-import UpdateProductForm from "../../components/EditarProductoForm/UpdateProductForm";
+import { useEffect, useState } from "react";
+import TopBar from "@components/TopBar/TopBar";
+import { Producto } from "@models/Producto";
+import Productos from "@components/TablaProductos/Productos";
+import UpdateProductForm from "@components/EditarProductoForm/UpdateProductForm";
 import "./style.css";
+import { getProductos } from "@services/api";
 
 export default function SegundaPagina() {
   const productoDefault: Producto = {
@@ -15,27 +16,32 @@ export default function SegundaPagina() {
     precio: 0.0,
   };
 
+  const [productos, setProductos] = useState<Producto[]>([]);
   const [producto, setProducto] = useState<Producto>(productoDefault);
   const [verForm, setVerForm] = useState<boolean>(false);
 
-  const productos: Producto[] = [
-    {
-      id: 1,
-      nombre: "Taza",
-      descripcion: "De porcela, color blanca",
-      precio: 1563,
-      marca: "CAROL",
-      categoria: "COCINA",
-    },
-    {
-      id: 2,
-      nombre: "Gorra",
-      descripcion: "Tamaño mediano",
-      precio: 663,
-      marca: "NIKE",
-      categoria: "ROPA",
-    },
-  ];
+  useEffect(() => {
+    getProductos().then((d) => setProductos(d));
+  }, []);
+
+  // const productos: Producto[] = [
+  //   {
+  //     id: 1,
+  //     nombre: "Taza",
+  //     descripcion: "De porcela, color blanca",
+  //     precio: 1563,
+  //     marca: "CAROL",
+  //     categoria: "COCINA",
+  //   },
+  //   {
+  //     id: 2,
+  //     nombre: "Gorra",
+  //     descripcion: "Tamaño mediano",
+  //     precio: 663,
+  //     marca: "NIKE",
+  //     categoria: "ROPA",
+  //   },
+  // ];
 
   const marcas: string[] = ["CAROL", "NIKE", "ADIDAS", "ESSEN"];
   const categorias: string[] = [
